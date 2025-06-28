@@ -38,7 +38,9 @@
 
 <div align="center">
   
-[![Readme in Japanese](https://img.shields.io/badge/Readme-日本語-blue.svg)](./README.ja.md)
+[![Readme in Arabic](https://img.shields.io/badge/Readme-العربية-green.svg)](./README_Ar.md)
+[![Readme in Japanese](https://img.shields.io/badge/Readme-日本語-blue.svg)](./README_Jp.md)
+[![Readme in Chinese](https://img.shields.io/badge/Readme-中文-red.svg)](./README_Zh.md)
 [![Deploy Status](https://img.shields.io/badge/Deploy-Passing-success.svg)](https://mintme.free.nf)
 [![Platform Status](https://img.shields.io/badge/Platform-Online-success.svg)](https://mintme.free.nf)
 
