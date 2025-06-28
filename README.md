@@ -1,58 +1,187 @@
-# 💰 Earn Without Doing Anything - Passive Income Guide
+<div align="center">
 
-Welcome to the ultimate guide for earning passive income through MintMe! This repository provides information about earning cryptocurrency while browsing the web or watching videos.
+[![Stars](https://img.shields.io/github/stars/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything?style=for-the-badge&color=yellow)](https://github.com/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything/stargazers)
+[![Forks](https://img.shields.io/github/forks/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything?style=for-the-badge&color=blue)](https://github.com/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything/network/members)
+[![Issues](https://img.shields.io/github/issues/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything?style=for-the-badge&color=red)](https://github.com/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything/issues)
+[![License](https://img.shields.io/github/license/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything?style=for-the-badge&color=green)](https://github.com/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything/blob/main/LICENSE)
 
-## 🌟 What is MintMe?
+</div>
 
-MintMe is a unique platform that allows users to earn cryptocurrency rewards through:
-- 🌐 Passive web browsing
-- 📺 Watching videos
-- 💻 Staying online while visiting specific websites
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" alt="Status"/>
+  <img src="https://img.shields.io/badge/Investment-Free-blue?style=for-the-badge" alt="Investment"/>
+  <img src="https://img.shields.io/badge/Payment-Instant-orange?style=for-the-badge" alt="Payment"/>
+</p>
 
-## ✨ Key Features
+<p align="center">
+  <a href="#-getting-started"><img src="https://img.shields.io/badge/Get_Started-Register_Now-brightgreen.svg" alt="Get Started"></a>
+  <img src="https://img.shields.io/badge/Last_Updated-2025--06--28_08:30_UTC-blue.svg" alt="Last Updated"/>
+  <a href="https://github.com/TAHCOINBLOCKCHAIN"><img src="https://img.shields.io/badge/Maintainer-@TAHCOINBLOCKCHAIN-orange.svg" alt="Maintainer"/></a>
+</p>
 
-- **No Investment Required**: Start earning without any initial capital
-- **Zero Fees**: No hidden charges or subscription costs
-- **Instant Payments**: Receive your earnings immediately
-- **User-Friendly**: Simple interface for both beginners and experienced users
-- **Flexible Earning**: Choose your preferred way to earn - browse, watch, or stay idle
+<div align="center">
+  
+[![Visitors](https://api.visitorbadge.io/api/visitors?path=TAHCOINBLOCKCHAIN%2FEarn-Without-Doing-anything&label=VISITORS&countColor=%23263759)](https://visitorbadge.io/status?path=TAHCOINBLOCKCHAIN%2FEarn-Without-Doing-anything)
+[![GitHub contributors](https://img.shields.io/github/contributors/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything?style=flat&color=purple)](https://github.com/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything/graphs/contributors)
+[![Activity](https://img.shields.io/github/commit-activity/m/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything?style=flat&color=brightgreen)](https://github.com/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything/graphs/commit-activity)
 
-## 🚀 Getting Started
+</div>
 
-1. Visit [MintMe Free](https://mintme.free.nf)
-2. Create your account
-3. Choose your preferred earning method:
-   - Browse websites
-   - Watch videos
-   - Stay idle while connected
+<h1 align="center">
+  🌟 Earn Without Doing Anything 🌟<br>
+  <sub>Your Gateway to Passive Cryptocurrency Income</sub>
+</h1>
 
-## 💎 Benefits
+<p align="center">
+  <b>Earn cryptocurrency while browsing, watching videos, or staying idle online - No investment required!</b>
+</p>
 
-- **Passive Income**: Earn while doing your regular online activities
-- **No Technical Skills Required**: User-friendly platform for everyone
-- **Secure Platform**: Safe and reliable earning environment
-- **Multiple Earning Options**: Choose what works best for you
+<div align="center">
+  
+[![Readme in Japanese](https://img.shields.io/badge/Readme-日本語-blue.svg)](./README.ja.md)
+[![Deploy Status](https://img.shields.io/badge/Deploy-Passing-success.svg)](https://mintme.free.nf)
+[![Platform Status](https://img.shields.io/badge/Platform-Online-success.svg)](https://mintme.free.nf)
 
-## 📈 Maximize Your Earnings
+</div>
 
-- Stay consistently active on the platform
-- Engage with multiple earning methods
-- Complete available tasks regularly
-- Keep your browser active during designated periods
-
-## 🔗 Important Links
-
-- [MintMe Free Platform](https://mintme.free.nf)
-- [Official Website](https://mintme.free.nf)
-
-## 📝 Note
-
-This is a legitimate way to earn cryptocurrency through passive activities. Always ensure you're following the platform's terms of service and guidelines for the best experience.
-
-## ⚠️ Disclaimer
-
-While this platform offers opportunities for passive income, earnings may vary based on various factors including activity levels, region, and available tasks.
+<p align="center">
+  <a href="#-features">Features</a> •
+  <a href="#-getting-started">Getting Started</a> •
+  <a href="#-benefits">Benefits</a> •
+  <a href="#-earning-tips">Earning Tips</a> •
+  <a href="#-links">Links</a>
+</p>
 
 ---
 
-**Keywords**: passive income, cryptocurrency earnings, MintMe, free earnings, no investment, instant payments, online income, passive crypto earning, browse and earn, watch and earn
+<details>
+<summary>📚 Table of Contents</summary>
+
+- [🎯 What is MintMe?](#-what-is-mintme)
+- [✨ Features](#-features)
+- [🚀 Getting Started](#-getting-started)
+- [💎 Benefits](#-benefits)
+- [📈 Earning Tips](#-earning-tips)
+- [🔗 Important Links](#-important-links)
+- [⚠️ Disclaimer](#️-disclaimer)
+- [📜 License](#-license)
+- [👥 Contributors](#-contributors)
+
+</details>
+
+## 🎯 What is MintMe?
+
+MintMe is an innovative platform that revolutionizes the way you earn cryptocurrency through:
+
+| Method | Description |
+|--------|------------|
+| 🌐 Web Browsing | Earn while surfing your favorite websites |
+| 📺 Video Watching | Get paid for watching content |
+| 💻 Idle Earning | Generate income by staying online |
+
+## ✨ Features
+
+<table>
+  <tr>
+    <td align="center">💰 No Investment</td>
+    <td align="center">⚡ Instant Payments</td>
+    <td align="center">🆓 Zero Fees</td>
+  </tr>
+  <tr>
+    <td align="center">Start earning immediately<br>without capital</td>
+    <td align="center">Receive rewards<br>instantly</td>
+    <td align="center">No hidden charges<br>or costs</td>
+  </tr>
+</table>
+
+## 🚀 Getting Started
+
+<div align="center">
+
+```mermaid
+graph LR
+    A[Visit MintMe] --> B[Create Account]
+    B --> C[Choose Method]
+    C --> D[Start Earning]
+```
+
+</div>
+
+1. 🌐 Visit [MintMe Free](https://mintme.free.nf)
+2. 📝 Create your account
+3. 🎯 Select your earning method:
+   - `🔍 Browse websites`
+   - `🎥 Watch videos`
+   - `💤 Stay idle while connected`
+
+## 💎 Benefits
+
+<div align="center">
+
+| 🔄 Passive Income | 🤝 User-Friendly | 🔒 Secure Platform | 🎯 Multiple Options |
+|------------------|------------------|-------------------|-------------------|
+| Earn while doing regular activities | Easy to use for everyone | Safe & reliable environment | Choose your preferred method |
+
+</div>
+
+## 📈 Earning Tips
+
+> 💡 **Pro Tips for Maximum Earnings**
+
+- ⏰ Maintain consistent daily activity
+- 🔄 Diversify your earning methods
+- ✅ Complete tasks regularly
+- 💻 Keep your browser active
+- 📊 Track your earnings progress
+
+## 🔗 Important Links
+
+<div align="center">
+
+[![MintMe Platform](https://img.shields.io/badge/MintMe-Platform-blue?style=for-the-badge)](https://mintme.free.nf)
+[![Official Website](https://img.shields.io/badge/Official-Website-green?style=for-the-badge)](https://mintme.free.nf)
+[![Documentation](https://img.shields.io/badge/Documentation-Read_More-yellow?style=for-the-badge)](https://github.com/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything/wiki)
+
+</div>
+
+## ⚠️ Disclaimer
+
+```
+While this platform offers legitimate opportunities for passive income, 
+actual earnings may vary based on factors including:
+- Activity levels
+- Geographic region
+- Available tasks
+- Platform usage
+```
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Contributors
+
+<div align="center">
+  
+Thanks to all our contributors!
+
+[![Contributors](https://contrib.rocks/image?repo=TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything)](https://github.com/TAHCOINBLOCKCHAIN/Earn-Without-Doing-anything/graphs/contributors)
+
+</div>
+
+<div align="center">
+
+---
+
+<sub>Last updated: 2025-06-28 08:30:54 UTC</sub>
+
+<sub>Made with ❤️ by [@TAHCOINBLOCKCHAIN](https://github.com/TAHCOINBLOCKCHAIN)</sub>
+
+**Keywords**: `passive income` • `cryptocurrency earnings` • `MintMe` • `free earnings` • `no investment` • `instant payments` • `online income` • `passive crypto earning` • `browse and earn` • `watch and earn`
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Made_with-Markdown-blue?style=flat-square&logo=markdown&logoColor=white" alt="Made with Markdown">
+  <img src="https://img.shields.io/badge/Powered_by-GitHub-black?style=flat-square&logo=github&logoColor=white" alt="Powered by GitHub">
+</div>
+
+</div>
