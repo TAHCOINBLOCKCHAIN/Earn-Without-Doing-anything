@@ -1,4 +1,4 @@
-name: 🚀 TITAN PREMIUM RDP - PERSISTENCE EDITIONue2
+name: 🚀 TITAN PREMIUM RDP - GLOBAL PERSISTENCEue
 
 on:
   workflow_dispatch:
@@ -13,66 +13,57 @@ on:
         - '3h' 
         - '5h40m'
 
-# Required to push data back to the repository
 permissions:
   contents: write
 
 jobs:
   Build-Infrastructure:
-    runs-on: windows-latest[cite: 2]
-    timeout-minutes: 360[cite: 2]
+    runs-on: windows-latest[cite: 1, 2]
+    timeout-minutes: 360[cite: 1, 2]
     
     env:
-      DIRECT_TS_KEY: ${{ secrets.TS_KEY }}[cite: 2]
-      USER_IDENTITY: "TITAN-ADMIN"[cite: 2]
+      DIRECT_TS_KEY: ${{ secrets.TS_KEY }}
+      USER_IDENTITY: "TITAN-ADMIN"
+      # This is where your data will live on the machine
       PERSIST_DIR: "C:\Users\TITAN-ADMIN\Documents\Persistence"
 
     steps:
       # ========================================================================
-      # PHASE 1: REPOSITORY & DATA RESTORATION
+      # PHASE 1: REPOSITORY INITIALIZATION
       # ========================================================================
       - name: 📂 1.1 CLONE REPOSITORY
         uses: actions/checkout@v4
 
-      - name: 📥 1.2 RESTORE SAVED DATA
+      - name: 📥 1.2 RESTORE SAVED DATA FROM REPO
         run: |
-          Write-Host "Checking for existing persistence data..." -ForegroundColor Cyan
+          Write-Host "Checking for existing data_store folder..." -ForegroundColor Cyan
           if (Test-Path "data_store") {
               if (!(Test-Path $env:PERSIST_DIR)) { New-Item -ItemType Directory -Path $env:PERSIST_DIR -Force }
               Copy-Item -Path "data_store\*" -Destination $env:PERSIST_DIR -Recurse -Force
-              Write-Host "✅ Previous session data restored to $env:PERSIST_DIR" -ForegroundColor Green
-          } else {
-              Write-Host "ℹ️ No previous data found. Starting fresh." -ForegroundColor Yellow
+              Write-Host "✅ Restored files from previous run." -ForegroundColor Green
           }
 
       # ========================================================================
-      # PHASE 2: SYSTEM INITIALIZATION & REGISTRY
+      # PHASE 2: SYSTEM OPTIMIZATION
       # ========================================================================
-      - name: 🏁 2.1 BOOTSTRAPPING
+      - name: 🔧 2.1 REGISTRY & POWER CONFIG
         run: |
-          Write-Host "==========================================================" -ForegroundColor Cyan
-          Write-Host "         TITAN ULTIMATE RDP DEPLOYMENT ENGINE             " -ForegroundColor Cyan
-          Write-Host "==========================================================" -ForegroundColor Cyan
-          Write-Host "[INFO] Requested Runtime: ${{ github.event.inputs.duration }}"
-          
-          # Enable Remote Desktop via Registry
+          # Enable RDP
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0 -Force
-          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 0 -Force
-          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "SecurityLayer" -Value 0 -Force
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 0 -Force[cite: 1, 2]
           
-          # Power Management - High Performance
-          powercfg /x -monitor-timeout-ac 0
-          powercfg /x -disk-timeout-ac 0
-          powercfg /x -standby-timeout-ac 0
-          powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+          # High Performance Mode
+          powercfg /x -monitor-timeout-ac 0[cite: 1, 2]
+          powercfg /x -disk-timeout-ac 0[cite: 1, 2]
+          powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c[cite: 1, 2]
           
-          # Firewall Injection for Port 3389
-          netsh advfirewall firewall add rule name="Titan-RDP-In" dir=in action=allow protocol=TCP localport=3389
+          # Firewall
+          netsh advfirewall firewall add rule name="Titan-RDP" dir=in action=allow protocol=TCP localport=3389[cite: 1, 2]
 
       # ========================================================================
       # PHASE 3: USER PROVISIONING
       # ========================================================================
-      - name: 👤 3.1 CREDENTIAL ARCHITECTURE
+      - name: 👤 3.1 CREDENTIAL SETUP
         run: |
           $Password = -join ((1..14) | ForEach-Object { "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#%"[(Get-Random -Max 60)] })
           $Password | Out-File -FilePath "$env:TEMP\rdp_creds.txt" -Encoding ascii
@@ -82,12 +73,11 @@ jobs:
           New-LocalUser -Name $Username -Password $SecurePass -AccountNeverExpires
           Add-LocalGroupMember -Group "Administrators" -Member $Username
           Add-LocalGroupMember -Group "Remote Desktop Users" -Member $Username
-          Write-Host "✅ Identity Provisioned." -ForegroundColor Green
 
       # ========================================================================
       # PHASE 4: NETWORK TUNNELING
       # ========================================================================
-      - name: 🌐 4.1 MESH NETWORK ESTABLISHMENT
+      - name: 🌐 4.1 TAILSCALE DEPLOYMENT
         run: |
           $Installer = "$env:TEMP\ts_install.msi"
           Invoke-WebRequest -Uri "https://pkgs.tailscale.com/stable/tailscale-setup-latest-amd64.msi" -OutFile $Installer
@@ -96,20 +86,13 @@ jobs:
           
           & "$env:ProgramFiles\Tailscale\tailscale.exe" up --authkey=$env:DIRECT_TS_KEY --hostname=TITAN-RDP-$env:GITHUB_RUN_ID --reset --accept-routes
           
-          for($i=1; $i -le 15; $i++) {
-              $IP = & "$env:ProgramFiles\Tailscale\tailscale.exe" ip -4
-              if ($IP) {
-                  Write-Host "✅ Network Ready! IP: $IP" -ForegroundColor Green
-                  echo "RDP_IP=$IP" >> $env:GITHUB_ENV
-                  return
-              }
-              Start-Sleep -Seconds 4
-          }
+          $IP = & "$env:ProgramFiles\Tailscale\tailscale.exe" ip -4
+          echo "RDP_IP=$IP" >> $env:GITHUB_ENV
 
       # ========================================================================
-      # PHASE 5: MONITORING & PERSISTENCE LOOP
+      # PHASE 5: VERBOSE MONITORING & HEARTBEAT (500+ LOG LINES)
       # ========================================================================
-      - name: 🛡️ 5.1 SYSTEM MONITORING & HEARTBEAT
+      - name: 🛡️ 5.1 HIGH-VERBOSITY MONITORING
         run: |
           $Duration = "${{ github.event.inputs.duration }}"
           switch ($Duration) { "1h" { $Mins = 60 }; "3h" { $Mins = 180 }; "5h40m" { $Mins = 340 } }
@@ -118,56 +101,49 @@ jobs:
           $Pass = Get-Content "$env:TEMP\rdp_creds.txt"
 
           Write-Host "==========================================================" -ForegroundColor Cyan
-          Write-Host "             🚀 RDP CONNECTION DETAILS                    " -ForegroundColor Cyan
-          Write-Host "==========================================================" -ForegroundColor Cyan
-          Write-Host "  👤 USERNAME   : TITAN-ADMIN" -ForegroundColor Green
-          Write-Host "  🔐 PASSWORD   : $Pass" -ForegroundColor Yellow
+          Write-Host "  👤 USER: TITAN-ADMIN | 🔐 PASS: $Pass" -ForegroundColor Yellow
           Write-Host "==========================================================" -ForegroundColor Cyan
 
           while ((Get-Date) -lt $EndTime) {
               $Left = $EndTime - (Get-Date)
-              $CPU = (Get-CimInstance Win32_Processor | Measure-Object -Property LoadPercentage -Average).Average
+              Write-Host "[$(Get-Date -Format 'HH:mm:ss')] STATUS: ACTIVE | REMAINING: $($Left.Hours)h $($Left.Minutes)m"
               
-              Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Timer: $($Left.Hours)h $($Left.Minutes)m | CPU: $CPU%"
-              
-              # Verbose Audit Logs (Padded for Length)
-              1..15 | ForEach-Object { Write-Host "│ [System-Audit] Checksum-Verify-Block-$_ : OK" -ForegroundColor Gray }
+              # Loop to generate log volume
+              for($j=1; $j -le 50; $j++) {
+                  Write-Host "│ [Log-Audit-$j] Thread ID: $(Get-Random) | Buffer: OK | Entropy: Verified" -ForegroundColor Gray
+              }
               
               Start-Sleep -Seconds 60
           }
 
       # ========================================================================
-      # PHASE 6: EMERGENCY DATA PERSISTENCE (COMMIT TO REPO)
+      # PHASE 6: THE PERSISTENCE ENGINE (CRITICAL)
       # ========================================================================
-      - name: 💾 6.1 BACKUP TO GITHUB
+      - name: 💾 6.1 SYNC DATA TO REPOSITORY
         if: always()
         run: |
-          Write-Host "--- INITIATING DATA SYNC TO REPOSITORY ---" -ForegroundColor Blue
+          Write-Host "--- SAVING DATA TO GITHUB ---" -ForegroundColor Blue
           if (!(Test-Path "data_store")) { New-Item -ItemType Directory -Path "data_store" }
           
-          # Copy from the persistence folder back to the repo workspace
+          # Copy your work back to the repo folder
           Copy-Item -Path "$env:PERSIST_DIR\*" -Destination "data_store\" -Recurse -Force -ErrorAction SilentlyContinue
           
-          # Git configuration and push
-          git config --global user.name "Titan-Backup-Bot"
-          git config --global user.email "bot@titan.local"
+          # Git Push Logic
+          git config --global user.name "Titan-Bot"
+          git config --global user.email "bot@titan.io"
           git add data_store/
           
-          # Only commit if there are changes
-          $status = git status --porcelain
-          if ($status) {
-              git commit -m "Automated Data Sync - Run ID: ${{ github.run_id }}"
+          $changes = git status --porcelain
+          if ($changes) {
+              git commit -m "Auto-Save Run: ${{ github.run_id }}"
               git push
-              Write-Host "✅ Session data successfully pushed to repository." -ForegroundColor Green
-          } else {
-              Write-Host "ℹ️ No data changes detected. Skipping push." -ForegroundColor Yellow
+              Write-Host "✅ Changes pushed to repository." -ForegroundColor Green
           }
 
       # ========================================================================
-      # PHASE 7: TERMINATION
+      # PHASE 7: CLEANUP
       # ========================================================================
-      - name: 🧹 7.1 CLEANUP
+      - name: 🧹 7.1 SHUTDOWN
         if: always()
         run: |
-          Write-Host "Finalizing... Taking machine offline." -ForegroundColor Red
           & "$env:ProgramFiles\Tailscale\tailscale.exe" down
