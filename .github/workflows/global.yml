@@ -18,19 +18,15 @@ permissions:
 
 jobs:
   Build-Infrastructure:
-    runs-on: windows-latest[cite: 1, 2]
-    timeout-minutes: 360[cite: 1, 2]
+    runs-on: windows-latest
+    timeout-minutes: 360
     
     env:
       DIRECT_TS_KEY: ${{ secrets.TS_KEY }}
       USER_IDENTITY: "TITAN-ADMIN"
-      # This is where your data will live on the machine
-      PERSIST_DIR: "C:\Users\TITAN-ADMIN\Documents\Persistence"
+      PERSIST_DIR: "C:\\Users\\TITAN-ADMIN\\Documents\\Persistence"
 
     steps:
-      # ========================================================================
-      # PHASE 1: REPOSITORY INITIALIZATION
-      # ========================================================================
       - name: 📂 1.1 CLONE REPOSITORY
         uses: actions/checkout@v4
 
@@ -43,96 +39,62 @@ jobs:
               Write-Host "✅ Restored files from previous run." -ForegroundColor Green
           }
 
-      # ========================================================================
-      # PHASE 2: SYSTEM OPTIMIZATION
-      # ========================================================================
       - name: 🔧 2.1 REGISTRY & POWER CONFIG
         run: |
-          # Enable RDP
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0 -Force
-          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 0 -Force[cite: 1, 2]
-          
-          # High Performance Mode
-          powercfg /x -monitor-timeout-ac 0[cite: 1, 2]
-          powercfg /x -disk-timeout-ac 0[cite: 1, 2]
-          powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c[cite: 1, 2]
-          
-          # Firewall
-          netsh advfirewall firewall add rule name="Titan-RDP" dir=in action=allow protocol=TCP localport=3389[cite: 1, 2]
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 0 -Force
+          powercfg /x -monitor-timeout-ac 0
+          powercfg /x -disk-timeout-ac 0
+          powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+          netsh advfirewall firewall add rule name="Titan-RDP" dir=in action=allow protocol=TCP localport=3389
 
-      # ========================================================================
-      # PHASE 3: USER PROVISIONING
-      # ========================================================================
       - name: 👤 3.1 CREDENTIAL SETUP
         run: |
           $Password = -join ((1..14) | ForEach-Object { "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#%"[(Get-Random -Max 60)] })
           $Password | Out-File -FilePath "$env:TEMP\rdp_creds.txt" -Encoding ascii
-          
           $Username = $env:USER_IDENTITY
           $SecurePass = ConvertTo-SecureString $Password -AsPlainText -Force
           New-LocalUser -Name $Username -Password $SecurePass -AccountNeverExpires
           Add-LocalGroupMember -Group "Administrators" -Member $Username
           Add-LocalGroupMember -Group "Remote Desktop Users" -Member $Username
 
-      # ========================================================================
-      # PHASE 4: NETWORK TUNNELING
-      # ========================================================================
       - name: 🌐 4.1 TAILSCALE DEPLOYMENT
         run: |
           $Installer = "$env:TEMP\ts_install.msi"
           Invoke-WebRequest -Uri "https://pkgs.tailscale.com/stable/tailscale-setup-latest-amd64.msi" -OutFile $Installer
           Start-Process msiexec.exe -ArgumentList "/i", "`"$Installer`"", "/quiet", "/norestart" -Wait
           Start-Sleep -Seconds 15
-          
           & "$env:ProgramFiles\Tailscale\tailscale.exe" up --authkey=$env:DIRECT_TS_KEY --hostname=TITAN-RDP-$env:GITHUB_RUN_ID --reset --accept-routes
-          
           $IP = & "$env:ProgramFiles\Tailscale\tailscale.exe" ip -4
           echo "RDP_IP=$IP" >> $env:GITHUB_ENV
 
-      # ========================================================================
-      # PHASE 5: VERBOSE MONITORING & HEARTBEAT (500+ LOG LINES)
-      # ========================================================================
       - name: 🛡️ 5.1 HIGH-VERBOSITY MONITORING
         run: |
           $Duration = "${{ github.event.inputs.duration }}"
           switch ($Duration) { "1h" { $Mins = 60 }; "3h" { $Mins = 180 }; "5h40m" { $Mins = 340 } }
-          
           $EndTime = (Get-Date).AddMinutes($Mins)
           $Pass = Get-Content "$env:TEMP\rdp_creds.txt"
-
           Write-Host "==========================================================" -ForegroundColor Cyan
           Write-Host "  👤 USER: TITAN-ADMIN | 🔐 PASS: $Pass" -ForegroundColor Yellow
           Write-Host "==========================================================" -ForegroundColor Cyan
-
           while ((Get-Date) -lt $EndTime) {
               $Left = $EndTime - (Get-Date)
               Write-Host "[$(Get-Date -Format 'HH:mm:ss')] STATUS: ACTIVE | REMAINING: $($Left.Hours)h $($Left.Minutes)m"
-              
-              # Loop to generate log volume
               for($j=1; $j -le 50; $j++) {
                   Write-Host "│ [Log-Audit-$j] Thread ID: $(Get-Random) | Buffer: OK | Entropy: Verified" -ForegroundColor Gray
               }
-              
               Start-Sleep -Seconds 60
           }
 
-      # ========================================================================
-      # PHASE 6: THE PERSISTENCE ENGINE (CRITICAL)
-      # ========================================================================
       - name: 💾 6.1 SYNC DATA TO REPOSITORY
         if: always()
         run: |
           Write-Host "--- SAVING DATA TO GITHUB ---" -ForegroundColor Blue
           if (!(Test-Path "data_store")) { New-Item -ItemType Directory -Path "data_store" }
-          
-          # Copy your work back to the repo folder
           Copy-Item -Path "$env:PERSIST_DIR\*" -Destination "data_store\" -Recurse -Force -ErrorAction SilentlyContinue
-          
-          # Git Push Logic
           git config --global user.name "Titan-Bot"
           git config --global user.email "bot@titan.io"
           git add data_store/
-          
           $changes = git status --porcelain
           if ($changes) {
               git commit -m "Auto-Save Run: ${{ github.run_id }}"
@@ -140,9 +102,6 @@ jobs:
               Write-Host "✅ Changes pushed to repository." -ForegroundColor Green
           }
 
-      # ========================================================================
-      # PHASE 7: CLEANUP
-      # ========================================================================
       - name: 🧹 7.1 SHUTDOWN
         if: always()
         run: |
